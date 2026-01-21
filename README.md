@@ -4,7 +4,7 @@
 
 > Simple and Powerful VS Code SFTP/SSH File Synchronization Extension
 
-[![Version](https://img.shields.io/badge/version-1.1.10-blue.svg)](https://github.com/ctlim2/ctlim)
+[![Version](https://img.shields.io/badge/version-1.1.20-blue.svg)](https://github.com/ctlim2/ctlim)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 Safely synchronize remote servers and local files with **Auto Upload on Save** and **Intelligent Conflict Detection**.
@@ -1046,7 +1046,7 @@ Bug reports, feature suggestions, and Pull Requests are welcome!
 
 ## 📄 License
 
-MIT License - See [LICENSE](LICENSE) file for details
+MIT License - See [LICENSE](https://github.com/ctlim2/ctlim/blob/main/LICENSE) file for details
 
 Copyright (c) 2026 ctlim2
 
@@ -1057,5 +1057,5 @@ Copyright (c) 2026 ctlim2
 If you find this project useful, please give it a ⭐ Star!
 
 **Developer**: ctlim  
-**Version**: 1.1.10  
+**Version**: 1.1.20  
 **Last Updated**: 2026-01-21
