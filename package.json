@@ -1,0 +1,552 @@
+{
+  "name": "ctlim-sftp",
+  "displayName": "ctlim-SFTP",
+  "description": "Simple SFTP sync extension with upload on save and conflict detection",
+  "version": "1.1.10",
+  "publisher": "ctlim",
+  "icon": "resources/icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "ctlim",
+    "sftp",
+    "ftp",
+    "sync",
+    "upload",
+    "download",
+    "remote",
+    "deploy",
+    "ssh",
+    "dif",
+    "file transfer"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ctlim2/ctlim"
+  },
+  "bugs": {
+    "url": "https://github.com/ctlim2/ctlim/issues"
+  },
+  "homepage": "https://github.com/ctlim2/ctlim#readme",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ctlim-sftp-explorer",
+          "title": "ctlim_SFTP",
+          "icon": "resources/activity-bar-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "ctlim-sftp-explorer": [
+        {
+          "id": "ctlimSftpView",
+          "name": "Remote Files",
+          "icon": "resources/activity-bar-icon.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "ctlimSftp.connectServer",
+        "title": "ctlim SFTP: Connect to Server"
+      },
+      {
+        "command": "ctlimSftp.disconnectServer",
+        "title": "ctlim SFTP: Disconnect Server"
+      },
+      {
+        "command": "ctlimSftp.switchServer",
+        "title": "ctlim SFTP: Switch Server"
+      },
+      {
+        "command": "ctlimSftp.upload",
+        "title": "ctlim SFTP: Upload File"
+      },
+      {
+        "command": "ctlimSftp.download",
+        "title": "ctlim SFTP: Download File"
+      },
+      {
+        "command": "ctlimSftp.syncUpload",
+        "title": "ctlim SFTP: Sync Local -> Remote"
+      },
+      {
+        "command": "ctlimSftp.syncDownload",
+        "title": "ctlim SFTP: Sync Remote -> Local"
+      },
+      {
+        "command": "ctlimSftp.syncBoth",
+        "title": "ctlim SFTP: Sync Both Ways"
+      },
+      {
+        "command": "ctlimSftp.config",
+        "title": "ctlim SFTP: Config"
+      },
+      {
+        "command": "ctlimSftp.refresh",
+        "title": "ctlim SFTP: Refresh Remote Explorer",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "ctlimSftp.openRemoteFile",
+        "title": "ctlim SFTP: Open Remote File"
+      },
+      {
+        "command": "ctlimSftp.downloadMultipleFiles",
+        "title": "ctlim SFTP: Download Multiple Files"
+      },
+      {
+        "command": "ctlimSftp.deleteMultipleFiles",
+        "title": "ctlim SFTP: Delete Multiple Files"
+      },
+      {
+        "command": "ctlimSftp.deleteRemoteFile",
+        "title": "ctlim SFTP: Delete Remote File"
+      },
+      {
+        "command": "ctlimSftp.newFile",
+        "title": "ctlim SFTP: New File"
+      },
+      {
+        "command": "ctlimSftp.newFolder",
+        "title": "ctlim SFTP: New Folder"
+      },
+      {
+        "command": "ctlimSftp.saveAs",
+        "title": "ctlim SFTP: Save As Remote Path"
+      },
+      {
+        "command": "ctlimSftp.diffWithRemote",
+        "title": "ctlim SFTP: Diff with Remote File",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "ctlimSftp.searchRemoteFiles",
+        "title": "Search: File Name...",
+        "category": "ctlim SFTP",
+        "icon": "$(search)"
+      },
+      {
+        "command": "ctlimSftp.searchInRemoteFiles",
+        "title": "Search: File Content (grep)...",
+        "category": "ctlim SFTP",
+        "icon": "$(telescope)"
+      },
+      {
+        "command": "ctlimSftp.openSSHTerminal",
+        "title": "ctlim SFTP: Open SSH Terminal",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "ctlimSftp.changePermissions",
+        "title": "ctlim SFTP: Change Permissions",
+        "icon": "$(lock)"
+      },
+      {
+        "command": "ctlimSftp.viewTransferHistory",
+        "title": "ctlim SFTP: View Transfer History",
+        "icon": "$(history)"
+      },
+      {
+        "command": "ctlimSftp.viewTransferStatistics",
+        "title": "ctlim SFTP: View Transfer Statistics",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "ctlimSftp.clearTransferHistory",
+        "title": "ctlim SFTP: Clear Transfer History",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "ctlimSftp.copyRemotePath",
+        "title": "ctlim SFTP: Copy Remote Path to Clipboard",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "ctlimSftp.executeCustomCommand",
+        "title": "ctlim SFTP: Execute Custom Command",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "ctlimSftp.copyRemoteFile",
+        "title": "ctlim SFTP: Copy Remote File",
+        "icon": "$(files)"
+      },
+      {
+        "command": "ctlimSftp.renameRemoteFile",
+        "title": "ctlim SFTP: Rename Remote File",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "ctlimSftp.openInBrowser",
+        "title": "ctlim SFTP: Open in Browser",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "ctlimSftp.addBookmark",
+        "title": "ctlim SFTP: Add Bookmark",
+        "icon": "$(star)"
+      },
+      {
+        "command": "ctlimSftp.viewBookmarks",
+        "title": "ctlim SFTP: View Bookmarks",
+        "icon": "$(list-unordered)"
+      },
+      {
+        "command": "ctlimSftp.removeBookmark",
+        "title": "ctlim SFTP: Remove Bookmark",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "ctlimSftp.deleteBookmark",
+        "title": "ctlim SFTP: Delete Bookmark",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "ctlimSftp.frequentBookmarks",
+        "title": "ctlim SFTP: Frequent Bookmarks",
+        "icon": "$(star-full)"
+      },
+      {
+        "command": "ctlimSftp.saveAsTemplate",
+        "title": "ctlim SFTP: Save as Template",
+        "icon": "$(save)"
+      },
+      {
+        "command": "ctlimSftp.addServerFromTemplate",
+        "title": "ctlim SFTP: Add Server from Template",
+        "icon": "$(add)"
+      },
+      {
+        "command": "ctlimSftp.manageTemplates",
+        "title": "ctlim SFTP: Manage Templates",
+        "icon": "$(list-unordered)"
+      },
+      {
+        "command": "ctlimSftp.selectPrivateKey",
+        "title": "ctlim SFTP: Select SSH Private Key Path",
+        "icon": "$(key)"
+      },
+      {
+        "command": "ctlimSftp.watchLog",
+        "title": "ctlim SFTP: Watch Log (tail -f)",
+        "icon": "$(eye)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "ctlimSftp.refresh",
+          "when": "view == ctlimSftpView",
+          "group": "navigation"
+        },
+        {
+          "command": "ctlimSftp.searchRemoteFiles",
+          "when": "view == ctlimSftpView",
+          "group": "navigation"
+        },
+        {
+          "command": "ctlimSftp.viewTransferHistory",
+          "when": "view == ctlimSftpView",
+          "group": "navigation"
+        },
+        {
+          "command": "ctlimSftp.viewBookmarks",
+          "when": "view == ctlimSftpView",
+          "group": "navigation"
+        },
+        {
+          "command": "ctlimSftp.addServerFromTemplate",
+          "when": "view == ctlimSftpView",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "ctlimSftp.disconnectServer",
+          "when": "view == ctlimSftpView && viewItem == server",
+          "group": "server@1"
+        },
+        {
+          "command": "ctlimSftp.newFile",
+          "when": "view == ctlimSftpView && viewItem == server",
+          "group": "new@1"
+        },
+        {
+          "command": "ctlimSftp.newFolder",
+          "when": "view == ctlimSftpView && viewItem == server",
+          "group": "new@2"
+        },
+        {
+          "command": "ctlimSftp.syncUpload",
+          "when": "view == ctlimSftpView && viewItem == server",
+          "group": "sync@1"
+        },
+        {
+          "command": "ctlimSftp.syncDownload",
+          "when": "view == ctlimSftpView && viewItem == server",
+          "group": "sync@2"
+        },
+        {
+          "command": "ctlimSftp.syncBoth",
+          "when": "view == ctlimSftpView && viewItem == server",
+          "group": "sync@3"
+        },
+        {
+          "command": "ctlimSftp.searchRemoteFiles",
+          "when": "view == ctlimSftpView && (viewItem == server || viewItem == remoteDirectory)",
+          "group": "search@1"
+        },
+        {
+          "command": "ctlimSftp.searchInRemoteFiles",
+          "when": "view == ctlimSftpView && (viewItem == server || viewItem == remoteDirectory)",
+          "group": "search@2"
+        },
+        {
+          "command": "ctlimSftp.openSSHTerminal",
+          "when": "view == ctlimSftpView && viewItem == server",
+          "group": "terminal@1"
+        },
+        {
+          "command": "ctlimSftp.viewTransferHistory",
+          "when": "view == ctlimSftpView && viewItem == server",
+          "group": "history@1"
+        },
+        {
+          "command": "ctlimSftp.viewTransferStatistics",
+          "when": "view == ctlimSftpView && viewItem == server",
+          "group": "history@2"
+        },
+        {
+          "command": "ctlimSftp.executeCustomCommand",
+          "when": "view == ctlimSftpView && (viewItem == server || viewItem == remoteDirectory || viewItem == remoteFile)",
+          "group": "tools@1"
+        },
+        {
+          "command": "ctlimSftp.saveAsTemplate",
+          "when": "view == ctlimSftpView && viewItem == server",
+          "group": "template@1"
+        },
+        {
+          "command": "ctlimSftp.changePermissions",
+          "when": "view == ctlimSftpView && viewItem == remoteFile",
+          "group": "ctlimSftp@1"
+        },
+        {
+          "command": "ctlimSftp.deleteRemoteFile",
+          "when": "view == ctlimSftpView && viewItem == remoteFile",
+          "group": "ctlimSftp@2"
+        },
+        {
+          "command": "ctlimSftp.downloadMultipleFiles",
+          "when": "view == ctlimSftpView && viewItem == remoteFile",
+          "group": "ctlimSftp@3"
+        },
+        {
+          "command": "ctlimSftp.deleteMultipleFiles",
+          "when": "view == ctlimSftpView && viewItem == remoteFile",
+          "group": "ctlimSftp@4"
+        },
+        {
+          "command": "ctlimSftp.copyRemotePath",
+          "when": "view == ctlimSftpView && viewItem == remoteFile",
+          "group": "ctlimSftp@5"
+        },
+        {
+          "command": "ctlimSftp.openInBrowser",
+          "when": "view == ctlimSftpView && viewItem == remoteFile",
+          "group": "ctlimSftp@6"
+        },
+        {
+          "command": "ctlimSftp.copyRemoteFile",
+          "when": "view == ctlimSftpView && viewItem == remoteFile",
+          "group": "file@1"
+        },
+        {
+          "command": "ctlimSftp.renameRemoteFile",
+          "when": "view == ctlimSftpView && viewItem == remoteFile",
+          "group": "file@2"
+        },
+        {
+          "command": "ctlimSftp.watchLog",
+          "when": "view == ctlimSftpView && viewItem == remoteFile",
+          "group": "file@3"
+        },
+        {
+          "command": "ctlimSftp.addBookmark",
+          "when": "view == ctlimSftpView && viewItem == remoteFile",
+          "group": "bookmark@1"
+        },
+        {
+          "command": "ctlimSftp.changePermissions",
+          "when": "view == ctlimSftpView && viewItem == remoteDirectory",
+          "group": "ctlimSftp@1"
+        },
+        {
+          "command": "ctlimSftp.deleteRemoteFile",
+          "when": "view == ctlimSftpView && viewItem == remoteDirectory",
+          "group": "ctlimSftp@2"
+        },
+        {
+          "command": "ctlimSftp.downloadMultipleFiles",
+          "when": "view == ctlimSftpView && viewItem == remoteDirectory",
+          "group": "ctlimSftp@3"
+        },
+        {
+          "command": "ctlimSftp.deleteMultipleFiles",
+          "when": "view == ctlimSftpView && viewItem == remoteDirectory",
+          "group": "ctlimSftp@4"
+        },
+        {
+          "command": "ctlimSftp.newFile",
+          "when": "view == ctlimSftpView && viewItem == remoteDirectory",
+          "group": "new@1"
+        },
+        {
+          "command": "ctlimSftp.newFolder",
+          "when": "view == ctlimSftpView && viewItem == remoteDirectory",
+          "group": "new@2"
+        },
+        {
+          "command": "ctlimSftp.syncUpload",
+          "when": "view == ctlimSftpView && viewItem == remoteDirectory",
+          "group": "sync@1"
+        },
+        {
+          "command": "ctlimSftp.syncDownload",
+          "when": "view == ctlimSftpView && viewItem == remoteDirectory",
+          "group": "sync@2"
+        },
+        {
+          "command": "ctlimSftp.syncBoth",
+          "when": "view == ctlimSftpView && viewItem == remoteDirectory",
+          "group": "sync@3"
+        },
+        {
+          "command": "ctlimSftp.copyRemotePath",
+          "when": "view == ctlimSftpView && viewItem == remoteDirectory",
+          "group": "utility@1"
+        },
+        {
+          "command": "ctlimSftp.addBookmark",
+          "when": "view == ctlimSftpView && viewItem == remoteDirectory",
+          "group": "bookmark@1"
+        },
+        {
+          "command": "ctlimSftp.deleteBookmark",
+          "when": "view == ctlimSftpView && viewItem == bookmark",
+          "group": "bookmark@1"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "ctlimSftp.upload",
+          "group": "ctlimSftp@1"
+        },
+        {
+          "command": "ctlimSftp.download",
+          "group": "ctlimSftp@2"
+        },
+        {
+          "command": "ctlimSftp.syncUpload",
+          "group": "ctlimSftp@3"
+        },
+        {
+          "command": "ctlimSftp.syncDownload",
+          "group": "ctlimSftp@4"
+        },
+        {
+          "command": "ctlimSftp.syncBoth",
+          "group": "ctlimSftp@5"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "ctlimSftp.saveAs",
+          "group": "ctlimSftp@1",
+          "when": "editorFocus"
+        },
+        {
+          "command": "ctlimSftp.diffWithRemote",
+          "group": "ctlimSftp@2",
+          "when": "editorFocus"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "SFTP",
+      "properties": {
+        "sftp.host": {
+          "type": "string",
+          "default": "",
+          "description": "SFTP server host address"
+        },
+        "sftp.port": {
+          "type": "number",
+          "default": 22,
+          "description": "SFTP server port number"
+        },
+        "sftp.username": {
+          "type": "string",
+          "default": "",
+          "description": "SFTP server username"
+        },
+        "sftp.remotePath": {
+          "type": "string",
+          "default": "/",
+          "description": "Remote server default path"
+        },
+        "ctlimSftp.showServerInfo": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show username@host info next to server name in TreeView"
+        },
+        "ctlimSftp.language": {
+          "type": "string",
+          "default": "auto",
+          "enum": [
+            "auto",
+            "ko",
+            "en"
+          ],
+          "enumDescriptions": [
+            "Follow VS Code language setting (auto-detect)",
+            "Korean",
+            "English"
+          ],
+          "description": "Extension language setting"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.30",
+    "@types/ssh2-sftp-client": "^9.0.6",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "@types/ssh2": "^1.15.5",
+    "basic-ftp": "^5.1.0",
+    "ssh2-sftp-client": "^10.0.3"
+  }
+}
